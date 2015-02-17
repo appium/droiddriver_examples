@@ -25,6 +25,7 @@ import com.google.android.droiddriver.finders.By;
 import com.google.android.droiddriver.finders.Finder;
 import com.google.android.droiddriver.helpers.BaseDroidDriverTest;
 import com.google.android.droiddriver.helpers.DroidDrivers;
+import com.google.android.droiddriver.util.ActivityUtils;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -67,6 +68,14 @@ public class ChangeTextBehaviorTest extends BaseDroidDriverTest<MainActivity> {
      */
     @Override
     protected void classSetUp() {
+        // DroidDriver's instrumentation driver requires an activity supplier.
+        ActivityUtils.setRunningActivitySupplier(new ActivityUtils.Supplier<Activity>() {
+            @Override
+            public Activity get() {
+                return getActivity();
+            }
+        });
+
         // DroidDriver init
         // DroidDrivers.init(DroidDrivers.newInstrumentationDriver(getInstrumentation())); // fails on API 21
         // API >= 18 use uiautomator driver
