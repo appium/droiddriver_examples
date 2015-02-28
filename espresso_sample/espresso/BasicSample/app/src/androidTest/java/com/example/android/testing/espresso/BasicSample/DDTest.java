@@ -1,6 +1,13 @@
 package com.example.android.testing.espresso.BasicSample;
 
 import android.app.Activity;
+import android.support.test.internal.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import android.support.test.runner.lifecycle.Stage;
+
+import com.android.support.test.deps.guava.collect.Iterables;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 import io.appium.droiddriver.UiElement;
 import io.appium.droiddriver.finders.By;
@@ -13,7 +20,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static com.example.android.testing.espresso.BasicSample.CloseSoftKeyboard.closeSoftKeyboard;
 
-public abstract class DDTest<T extends Activity> extends BaseDroidDriverTest {
+public abstract class DDTest<T extends Activity> extends BaseDroidDriverTest<T> {
 
     protected DDTest(Class<T> activityClass) {
         super(activityClass);
@@ -23,13 +30,12 @@ public abstract class DDTest<T extends Activity> extends BaseDroidDriverTest {
     protected void setUp() throws Exception {
         super.setUp();
 
-        // DroidDriver requires an activity supplier when using instrumentation driver
-        ActivitySupplierInitializer.get(new ActivityUtils.Supplier<Activity>() {
+        ActivityUtils.setRunningActivitySupplier(new ActivityUtils.Supplier<Activity>() {
             @Override
             public Activity get() {
-                return getActivity();
+                return Iterables.getFirst(ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED), null);
             }
-        }).singleRun();
+        });
 
         // For each test method invocation, the Activity will not actually be created
         // until the first time this method is called.
@@ -55,4 +61,3 @@ public abstract class DDTest<T extends Activity> extends BaseDroidDriverTest {
         onView(withId(viewId)).perform(closeSoftKeyboard());
     }
 }
-
