@@ -20,17 +20,6 @@ import android.app.Activity;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 
-import com.google.android.droiddriver.UiElement;
-import com.google.android.droiddriver.finders.By;
-import com.google.android.droiddriver.finders.Finder;
-import com.google.android.droiddriver.helpers.BaseDroidDriverTest;
-import com.google.android.droiddriver.helpers.DroidDrivers;
-import com.google.android.droiddriver.util.ActivityUtils;
-
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static com.example.android.testing.espresso.BasicSample.CloseSoftKeyboard.closeSoftKeyboard;
-
 // BaseDroidDriverTest extends D2ActivityInstrumentationTestCase2 extends ActivityInstrumentationTestCase2
 // test runner (set in build.gradle)
 // TestRunner extends InstrumentationTestRunner -- handles droiddriver init
@@ -44,62 +33,12 @@ import static com.example.android.testing.espresso.BasicSample.CloseSoftKeyboard
  * Note that there is no need to tell Espresso that a view is in a different {@link Activity}.
  * </p>
  */
-public class ChangeTextBehaviorTest extends BaseDroidDriverTest<MainActivity> {
+public class ChangeTextBehaviorTest extends DDTest<MainActivity> {
 
     public static final String STRING_TO_BE_TYPED = "Espresso";
 
     public ChangeTextBehaviorTest() {
         super(MainActivity.class);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        // For each test method invocation, the Activity will not actually be created
-        // until the first time this method is called.
-        getActivity();
-    }
-
-    /**
-     * Initializes test fixture once for all tests extending this class. Typically
-     * you call {@link com.google.android.droiddriver.helpers.DroidDrivers#init} with an appropriate instance. If an
-     * InstrumentationDriver is used, this is a good place to call
-     * {@link com.google.android.droiddriver.instrumentation.ViewElement#overrideClassName}
-     */
-    @Override
-    protected void classSetUp() {
-        // DroidDriver's instrumentation driver requires an activity supplier.
-        ActivityUtils.setRunningActivitySupplier(new ActivityUtils.Supplier<Activity>() {
-            @Override
-            public Activity get() {
-                return getActivity();
-            }
-        });
-
-        // DroidDriver init
-        // DroidDrivers.init(DroidDrivers.newInstrumentationDriver(getInstrumentation())); // fails on API 21
-        // API >= 18 use uiautomator driver
-        // API <= 17 use instrumentation driver (not well tested, breaks on API 21)
-        DroidDrivers.init(DroidDrivers.newDriver(getInstrumentation()));
-    }
-
-    String resourceId(int rID) {
-        return getTargetContext().getResources().getResourceName(rID);
-    }
-
-    UiElement find(Finder finder) {
-        // Note that we use on to ensure refreshUiElementTree() is called
-        // the 'find' method will not refresh the uielementtree
-        return DroidDrivers.get().on(finder);
-    }
-
-    UiElement id(int rID) {
-        return find(By.resourceId(resourceId(rID)));
-    }
-
-    // DroidDriver can't hide the keyboard to use Espresso for now.
-    void hideKeyboard(int viewId) {
-        onView(withId(viewId)).perform(closeSoftKeyboard());
     }
 
     public void testChangeText_sameActivity() {

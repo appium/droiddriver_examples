@@ -29,5 +29,9 @@ dependencies {
     // Testing-only dependencies
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
-    androidTestCompile 'io.appium:droiddriver:0.9.1-SNAPSHOT'
+    androidTestCompile 'io.appium:droiddriver:0.9.1'
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-Xlint:all'
 }
