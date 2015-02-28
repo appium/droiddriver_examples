@@ -1,4 +1,4 @@
-# droiddriver_examples
+# droiddriver_examples [![Build Status](https://team-appium.ci.cloudbees.com/buildStatus/icon?job=DroidDriver_Examples_OPE)](https://team-appium.ci.cloudbees.com/view/DroidDriver/job/DroidDriver_Examples_OPE/)
 
 - The samples work with [Android Studio](docs/android_studio.md)
 - [JavaDoc for droiddriver](http://appium.github.io/droiddriver/javadoc/)
