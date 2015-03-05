@@ -1,1 +1,5 @@
 include ':espresso:BasicSample:app'
+// Delete the two lines before submit!
+include(':droiddriver-android_support_test')
+project(':droiddriver-android_support_test').projectDir = file('../../../aosp/droiddriver-dev/external/droiddriver/droiddriver-android_support_test')
+
