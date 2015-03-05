@@ -20,9 +20,6 @@ import android.app.Activity;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 
-// BaseDroidDriverTest extends D2ActivityInstrumentationTestCase2 extends ActivityInstrumentationTestCase2
-// test runner (set in build.gradle)
-// TestRunner extends InstrumentationTestRunner -- handles droiddriver init
 // run tests: ./gradlew clean assemble connectedCheck
 // run tests quickly: ./gradlew connectedCheck
 
@@ -51,7 +48,6 @@ public class ChangeTextBehaviorTest extends DDTest<MainActivity> {
         String expected = STRING_TO_BE_TYPED;
         String actual = id(R.id.textToBeChanged).getText();
 
-        // Often flakes out with: junit.framework.ComparisonFailure: expected:<[E]spresso> but was:<[]spresso>
         assertEquals(expected, actual);
     }
 

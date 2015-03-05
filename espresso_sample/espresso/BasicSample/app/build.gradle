@@ -17,13 +17,13 @@ android {
 
     defaultConfig {
         applicationId "com.example.android.testing.espresso.BasicSample"
-        minSdkVersion 12
+        minSdkVersion 8
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
 
         //testInstrumentationRunner "com.google.android.droiddriver.runner.TestRunner"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "io.appium.droiddriver.android_support_test.D2AndroidJUnitRunner"
     }
     packagingOptions {
         exclude 'LICENSE.txt'
@@ -41,6 +41,8 @@ dependencies {
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
     androidTestCompile 'io.appium:droiddriver:0.9.1'
+    // Update this with droiddriver-android_support_test in maven before submit!
+    androidTestCompile project(':droiddriver-android_support_test')
 }
 
 tasks.withType(JavaCompile) {
