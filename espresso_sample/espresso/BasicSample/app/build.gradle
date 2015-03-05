@@ -25,11 +25,25 @@ android {
         //testInstrumentationRunner "com.google.android.droiddriver.runner.TestRunner"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     packagingOptions {
         exclude 'LICENSE.txt'
     }
+
     lintOptions {
         abortOnError false
+    }
+
+    // Use gradle createDebugCoverageReport or connectedCheck to generate jacoco coverage reports
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+    }
+
+    // Find latest version at https://bintray.com/bintray/jcenter/org.jacoco%3Ajacoco/view
+    jacoco {
+        version "0.7.4.201502262128"
     }
 }
 
